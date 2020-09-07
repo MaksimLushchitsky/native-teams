@@ -1,0 +1,1161 @@
+{% block stylesheets %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="images/favicon.png" type="image/png"/>
+    <!-- Fontawesome v5 CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
+    <!-- Main fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+          rel="stylesheet">
+    <!-- Main style -->
+    <link href="{{ asset('css/theme-style.css') }}" rel="stylesheet"/>
+    <title>Payments | Nativeteams</title>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+{% endblock %}
+{% block body %}
+
+    <header class="d-flex d-md-none align-items-center justify-content-between">
+        <div class="logo">
+            <ul class="list-inline list-unstyled mb-0">
+                <li class="list-inline-item  align-bottom">
+                    <a href="#"><img src="images/nativeteams-logo-white.png" class="image-auto"></a>
+                </li>
+                <li class="list-inline-item  align-middle">V.1.0.0</li>
+            </ul>
+        </div>
+        <div>
+            <ul class="list-inline list-unstyled mb-0">
+                <li class="list-inline-item align-middle">
+                    <div class="dropdown standard-dropdown user">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <span class="icon" style="background-image: {% if image_name %}
+                                    url('/uploads/images/{{ image_name }}')
+                            {% endif %}
+
+                                {% if image_name == null %}
+                                    url('images/user-image.jpg')
+                            {% endif %};">
+
+                            </span>
+                            <span class="d-none d-smflex h-100 align-items-center">
+                                    <span class="w-100">
+                                        {{ app.user.username }}
+                                    </span>
+                                </span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="{{ path('settings_profile') }}">Profile</a>
+                            <a class="dropdown-item" href="{{ path('settings_profile') }}">Settings</a>
+                            <a class="dropdown-item" href="{{ '/logout' }}">Logout</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item align-middle">
+                    <a href="#" class="hamburger hamburger--collapse menu-toggle">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="main-app">
+        <div class="sidebar">
+            <div class="logo d-none d-md-flex align-items-center justify-content-between">
+                <div class="w-100">
+                    <div class="d-flex align-items-end justify-content-between">
+                        <div><a href="#"><img src="images/nativeteams-logo-white.png" class="image-auto"></a></div>
+                        <div class="version">V.1.0.0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu">
+                <ul class="list-unstyled mb-0">
+                    <li>
+                        <a href="{{ path('main') }}" class="">
+                                <span class="d-flex h-100 align-items-center justify-content-start icon">
+                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                         width="20px" height="20px" viewBox="0 0 20 20"
+                                         enable-background="new 0 0 20 20" xml:space="preserve">
+                                    <g>
+                                        <defs>
+                                            <path id="SVGID_11_" d="M15.4,1.5c1.7,0,3.1,1.4,3.1,3.1s-1.4,3.1-3.1,3.1s-3.1-1.4-3.1-3.1S13.7,1.5,15.4,1.5z M15.4,9.2
+                                                c2.5,0,4.6-2.1,4.6-4.6S17.9,0,15.4,0s-4.6,2.1-4.6,4.6S12.8,9.2,15.4,9.2z"/>
+                                        </defs>
+                                        <clipPath id="SVGID_12_">
+                                            <use xlink:href="#SVGID_11_" overflow="visible"/>
+                                        </clipPath>
+                                        <rect x="6.9" y="-3.8" clip-path="url(#SVGID_12_)" fill="#F5635B" width="16.9"
+                                              height="16.9"/>
+                                    </g>
+                                    <g>
+                                        <defs>
+                                            <path id="SVGID_13_" d="M4.8,1.5c1.7,0,3.1,1.4,3.1,3.1S6.5,7.7,4.8,7.7S1.7,6.3,1.7,4.6S3.1,1.5,4.8,1.5z M4.8,9.2
+                                                c2.5,0,4.6-2.1,4.6-4.6S7.3,0,4.8,0S0.1,2.1,0.1,4.6S2.2,9.2,4.8,9.2z"/>
+                                        </defs>
+                                        <clipPath id="SVGID_14_">
+                                            <use xlink:href="#SVGID_13_" overflow="visible"/>
+                                        </clipPath>
+                                        <rect x="-3.7" y="-3.8" clip-path="url(#SVGID_14_)" fill="#F5635B" width="16.9"
+                                              height="16.9"/>
+                                    </g>
+                                    <g>
+                                        <defs>
+                                            <path id="SVGID_15_" d="M4.8,12.4c1.7,0,3.1,1.4,3.1,3.1s-1.4,3.1-3.1,3.1s-3.1-1.4-3.1-3.1S3.1,12.4,4.8,12.4z M4.8,20
+                                                c2.5,0,4.6-2.1,4.6-4.6s-2.1-4.6-4.6-4.6s-4.6,2.1-4.6,4.6S2.2,20,4.8,20z"/>
+                                        </defs>
+                                        <clipPath id="SVGID_16_">
+                                            <use xlink:href="#SVGID_15_" overflow="visible"/>
+                                        </clipPath>
+                                        <rect x="-3.7" y="7" clip-path="url(#SVGID_16_)" fill="#F5635B" width="16.9"
+                                              height="16.9"/>
+                                    </g>
+                                    <g>
+                                        <defs>
+                                            <path id="SVGID_17_" d="M15.4,12.4c1.7,0,3.1,1.4,3.1,3.1s-1.4,3.1-3.1,3.1s-3.1-1.4-3.1-3.1S13.7,12.4,15.4,12.4z M15.4,20
+                                                c2.5,0,4.6-2.1,4.6-4.6s-2.1-4.6-4.6-4.6s-4.6,2.1-4.6,4.6S12.8,20,15.4,20z"/>
+                                        </defs>
+                                        <clipPath id="SVGID_18_">
+                                            <use xlink:href="#SVGID_17_" overflow="visible"/>
+                                        </clipPath>
+                                        <rect x="6.9" y="7" clip-path="url(#SVGID_18_)" fill="#F5635B" width="16.9"
+                                              height="16.9"/>
+                                    </g>
+                                    </svg>
+                                </span>
+                            <span class="d-flex h-100 align-items-center justify-content-start">
+                                    <span>Dashboard</span>
+                                </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('team') }}" class="">
+                                <span class="d-flex h-100 align-items-center justify-content-start icon">
+                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                         width="24px" height="24px" viewBox="0 0 24 24"
+                                         enable-background="new 0 0 24 24" xml:space="preserve">
+                                    <g>
+                                        <defs>
+                                            <path id="SVGID_21_" d="M19.5,19.7C19.4,19.6,19.4,19.6,19.5,19.7c-1.2-0.9-2.5-1.6-3.9-2v-1.4c0.6-0.8,0.9-1.7,1.1-2.7
+                                                c0.7-0.6,1.1-1.5,1.1-2.4c0-0.4-0.2-0.9-0.5-1.2c-0.2-0.2-0.3-0.3-0.5-0.4v-1c0-0.6-0.2-1.3-0.6-1.8c-0.6-0.9-1.5-1.5-2.5-1.8V4.3
+                                                c0-0.4-0.3-0.6-0.6-0.6h-1c-2,0-3.6,1.6-4.2,3.1C7.6,7.2,7.5,7.7,7.5,8.3l0,1.3C7.3,9.7,7.1,9.8,6.9,9.9c-0.3,0.3-0.5,0.7-0.5,1.2
+                                                c0,0.9,0.4,1.8,1.1,2.5c0.1,0.9,0.5,1.8,1,2.6v1.5c-1.4,0.4-2.8,1.1-4,1.9c0,0,0,0-0.1,0.1C1.4,16.6,0.4,12,2.1,8S7.6,1.3,12,1.3
+                                                s8.3,2.6,9.9,6.7C23.6,12,22.6,16.6,19.5,19.7L19.5,19.7z M5.5,20.5c1.1-0.8,2.4-1.4,3.7-1.7c0.4-0.1,0.6-0.4,0.6-0.8v-1.9
+                                                c0-0.2-0.1-0.4-0.2-0.6c-0.5-0.7-0.8-1.5-0.9-2.3c0-0.2-0.1-0.3-0.3-0.5c-0.5-0.4-0.8-0.9-0.8-1.6c0-0.1,0-0.2,0.1-0.3
+                                                c0.1-0.1,0.2-0.1,0.3-0.1c0.2,0,0.3-0.1,0.5-0.2c0.1-0.1,0.2-0.3,0.2-0.5l0-1.8c0-0.4,0.1-0.8,0.2-1.2c0.4-1.1,1.6-2.3,3-2.3h0.3
+                                                v0.6c0,0.3,0.2,0.6,0.6,0.6c0.9,0.1,1.7,0.6,2.2,1.4c0.2,0.3,0.3,0.7,0.3,1v1.5c0,0.4,0.3,0.6,0.6,0.6c0.1,0,0.2,0,0.3,0.1
+                                                c0.1,0.1,0.1,0.2,0.1,0.3c0,0.6-0.3,1.2-0.8,1.5c-0.1,0.1-0.2,0.3-0.3,0.4c-0.1,0.9-0.4,1.7-0.9,2.4c-0.1,0.2-0.2,0.4-0.2,0.6V18
+                                                c0,0.4,0.3,0.7,0.6,0.8c1.3,0.3,2.5,0.9,3.6,1.7C14.6,23.4,9.4,23.4,5.5,20.5z M12,0C5.4,0,0,5.4,0,12s5.4,12,12,12s12-5.4,12-12
+                                                C24,5.4,18.6,0,12,0z"/>
+                                        </defs>
+                                        <clipPath id="SVGID_22_">
+                                            <use xlink:href="#SVGID_21_" overflow="visible"/>
+                                        </clipPath>
+                                        <rect x="-1.3" y="-1.3" clip-path="url(#SVGID_22_)" width="26.6" height="26.6"
+                                              fill="#FFFFFF"/>
+                                    </g>
+                                    </svg>
+                                </span>
+                            <span class="d-flex h-100 align-items-center justify-content-start">
+                                    <span>Team</span>
+                                </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">
+                                <span class="d-flex h-100 align-items-center justify-content-start icon">
+                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                         width="24px" height="24px" viewBox="0 0 24 24"
+                                         enable-background="new 0 0 24 24" xml:space="preserve">
+                                    <g>
+                                        <defs>
+                                            <path id="SVGID_31_" d="M20.1,18.7c-0.5-1.9-2.6-3.4-5.4-4c-1.6,1.4-3.9,1.4-5.5,0c-2.8,0.6-4.9,2.2-5.4,4
+                                                C0.4,14.4,0.8,8.1,4.8,4.3s10.3-3.8,14.4,0S23.6,14.4,20.1,18.7L20.1,18.7z M12,0C5.4,0,0,5.4,0,12s5.4,12,12,12s12-5.4,12-12
+                                                C24,5.4,18.6,0,12,0z"/>
+                                        </defs>
+                                        <clipPath id="SVGID_32_">
+                                            <use xlink:href="#SVGID_31_" overflow="visible"/>
+                                        </clipPath>
+                                        <rect x="-3.8" y="-3.8" clip-path="url(#SVGID_32_)" width="31.5" height="31.5"
+                                              fill="#FFFFFF"/>
+                                    </g>
+                                    <g>
+                                        <defs>
+                                            <path id="SVGID_33_" d="M14.7,10.2h-1.9V12c0,0.2-0.2,0.4-0.4,0.4h-0.8c-0.2,0-0.4-0.2-0.4-0.4v-1.9H9.3c-0.2,0-0.4-0.2-0.4-0.4V9
+                                                c0-0.2,0.2-0.4,0.4-0.4h1.9V6.7c0-0.2,0.2-0.4,0.4-0.4h0.8c0.2,0,0.4,0.2,0.4,0.4v1.9h1.9c0.2,0,0.4,0.2,0.4,0.4v0.8
+                                                C15.1,10,14.9,10.2,14.7,10.2z M12,5c-1.1,0-2.3,0.4-3.1,1.3C8.1,7.1,7.7,8.2,7.7,9.3c0,2.4,1.9,4.3,4.3,4.3s4.3-1.9,4.3-4.3
+                                                S14.4,5,12,5z"/>
+                                        </defs>
+                                        <clipPath id="SVGID_34_">
+                                            <use xlink:href="#SVGID_33_" overflow="visible"/>
+                                        </clipPath>
+                                        <rect x="3.9" y="1.3" clip-path="url(#SVGID_34_)" width="16.1" height="16.1"
+                                              fill="#FFFFFF"/>
+                                    </g>
+                                    </svg>
+                                </span>
+                            <span class="d-flex h-100 align-items-center justify-content-start">
+                                    <span>New Hires</span>
+                                </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('payments') }}" class="active">
+                                <span class="d-flex h-100 align-items-center justify-content-start icon">
+                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                         width="18px" height="13.7px" viewBox="0 0 18 13.7"
+                                         enable-background="new 0 0 18 13.7" xml:space="preserve">
+                                    <g>
+                                        <defs>
+                                            <path id="SVGID_41_" d="M17,5.7H1v6c0,0.6,0.5,1.1,1.1,1.1h14c0.6,0,1.1-0.5,1.1-1.1V5.7z M1,3.4H17V2C17,1.5,16.5,1,16,1H2
+                                                C1.5,1,1,1.5,1,2V3.4z M2,0h14c1.1,0,2,0.9,2,2v9.7c0,1.1-0.9,2-2,2H2c-1.1,0-2-0.9-2-2V2C0,0.9,0.9,0,2,0z"/>
+                                        </defs>
+                                        <clipPath id="SVGID_42_">
+                                            <use xlink:href="#SVGID_41_" overflow="visible"/>
+                                        </clipPath>
+                                        <rect x="-0.3" y="-0.3" clip-path="url(#SVGID_42_)" width="18.5" height="14.2"
+                                              fill="#FFFFFF"/>
+                                    </g>
+                                    <g>
+                                        <defs>
+                                            <path id="SVGID_43_"
+                                                  d="M3.3,9C3,9,2.8,8.8,2.8,8.5C2.8,8.2,3,8,3.3,8h4.3C7.8,8,8,8.2,8,8.5C8,8.8,7.8,9,7.5,9H3.3z"/>
+                                        </defs>
+                                        <clipPath id="SVGID_44_">
+                                            <use xlink:href="#SVGID_43_" overflow="visible"/>
+                                        </clipPath>
+                                        <rect x="2.6" y="7.8" clip-path="url(#SVGID_44_)" width="5.7" height="1.5"
+                                              fill="#FFFFFF"/>
+                                    </g>
+                                    <g>
+                                        <defs>
+                                            <path id="SVGID_45_" d="M3.3,11.2c-0.3,0-0.5-0.3-0.5-0.5c0-0.3,0.2-0.5,0.5-0.5h3c0.3,0,0.5,0.3,0.5,0.5c0,0.3-0.3,0.5-0.5,0.5
+                                                H3.3z"/>
+                                        </defs>
+                                        <clipPath id="SVGID_46_">
+                                            <use xlink:href="#SVGID_45_" overflow="visible"/>
+                                        </clipPath>
+                                        <rect x="2.6" y="9.9" clip-path="url(#SVGID_46_)" width="4.4" height="1.5"
+                                              fill="#FFFFFF"/>
+                                    </g>
+                                    </svg>
+                                </span>
+                            <span class="d-flex h-100 align-items-center justify-content-start">
+                                    <span>Payments</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="">
+                                <span class="d-flex h-100 align-items-center justify-content-start icon">
+                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                         width="21.2px" height="22px" viewBox="0 0 21.2 22"
+                                         enable-background="new 0 0 21.2 22" xml:space="preserve">
+                                    <g>
+                                        <defs>
+                                            <path id="SVGID_991_" d="M14.2,11.3L10.3,16c-0.1,0.2-0.3,0.3-0.5,0.3h0c-0.2,0-0.4-0.1-0.5-0.2L7,13.7c-0.2-0.2-0.2-0.5-0.2-0.7
+                                                c0.1-0.2,0.3-0.4,0.5-0.5c0.3-0.1,0.5,0,0.7,0.2l1.6,1.7l3.4-4.1c0.3-0.3,0.7-0.3,1-0.1C14.4,10.5,14.4,11,14.2,11.3z M18.8,16.8
+                                                l-2.4,2.6V18c0-0.7,0.5-1.2,1.2-1.2H18.8z M1.5,19.3V6.8h18.2v8.5h-2.1c-1.5,0-2.7,1.2-2.7,2.7v2.5H2.7c-0.3,0-0.6-0.1-0.9-0.4
+                                                C1.6,20,1.5,19.6,1.5,19.3z M2.7,2.8h1.6v0.6c0,0.4,0.3,0.7,0.7,0.7c0.4,0,0.7-0.3,0.7-0.7V2.8H8v0.6c0,0.4,0.3,0.7,0.7,0.7
+                                                s0.7-0.3,0.7-0.7V2.8h2.2v0.6c0,0.4,0.3,0.7,0.7,0.7s0.7-0.3,0.7-0.7V2.8h2.2v0.6c0,0.4,0.3,0.7,0.7,0.7c0.4,0,0.7-0.3,0.7-0.7
+                                                V2.8h1.6c0.3,0,0.6,0.1,0.9,0.4c0.2,0.2,0.4,0.5,0.4,0.9v1.3H1.5V4C1.5,3.3,2,2.8,2.7,2.8z M21.1,16.3c0-0.1,0-0.1,0-0.2v-10
+                                                c0,0,0,0,0,0c0,0,0,0,0,0V4c0-1.5-1.2-2.7-2.7-2.7h-1.6V0.7c0-0.4-0.3-0.7-0.7-0.7c-0.4,0-0.7,0.3-0.7,0.7v0.6h-2.2V0.7
+                                                c0-0.4-0.3-0.7-0.7-0.7s-0.7,0.3-0.7,0.7v0.6H9.5V0.7C9.5,0.3,9.1,0,8.7,0S8,0.3,8,0.7v0.6H5.8V0.7C5.8,0.3,5.5,0,5.1,0
+                                                C4.6,0,4.3,0.3,4.3,0.7v0.6H2.7C1.2,1.3,0,2.5,0,4v2.1c0,0,0,0,0,0c0,0,0,0,0,0v13.2C0,20.8,1.2,22,2.7,22h13c0,0,0.1,0,0.1,0
+                                                c0,0,0.1,0,0.1,0c0,0,0,0,0,0c0,0,0.1,0,0.1,0c0,0,0,0,0,0c0,0,0,0,0.1-0.1c0,0,0,0,0,0l4.7-5.2c0,0,0,0,0,0
+                                                C21,16.5,21.1,16.4,21.1,16.3C21.1,16.3,21.1,16.3,21.1,16.3z"/>
+                                        </defs>
+                                        <clipPath id="SVGID_992_">
+                                            <use xlink:href="#SVGID_991_" overflow="visible"/>
+                                        </clipPath>
+                                        <rect x="-2.4" y="-2.4" clip-path="url(#SVGID_992_)" width="26" height="26.9"
+                                              fill="#FFFFFF"/>
+                                    </g>
+                                    </svg>
+                                </span>
+                            <span class="d-flex h-100 align-items-center justify-content-start">
+                                    <span>Holiday Calendar</span>
+                                </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="standalone-button">
+                <a href="#" class="btn new-member">New Member</a>
+            </div>
+
+            <div class="bottom">
+                <div class="dropup standard-dropdown organization">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <span class="icon"></span>
+                        <span class="d-flex h-100 align-items-center">
+                                <span class="w-100">
+                                    <small>Organization</small>{{ organization.name }}
+                                </span>
+                            </span>
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        {% for organization in organizations %}
+                            <a class="dropdown-item"
+                               href="{{ path('payments', {'org_id': organization.id}) }}">{{ organization.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="d-flex align-items-center justify-content-between mb-3 mb-lg-4">
+                <div>
+                    <h4 class="mb-0">Payments</h4>
+                    <ul class="list-unstyled list-inline page-nav mb-0">
+                        <li class="py-1 list-inline-item">Payments</li>
+                    </ul>
+                </div>
+                <div class="d-none d-sm-block">
+                    <div class="dropdown standard-dropdown user">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <span class="icon" style="background-image: {% if image_name %}
+                                    url('/uploads/images/{{ image_name }}')
+                            {% endif %}
+
+                                {% if image_name == null %}
+                                    url('images/user-image.jpg')
+                            {% endif %};">
+
+                            </span>
+                            <span class="d-none d-sm-flex h-100 align-items-center">
+                                    <span class="w-100">
+                                        {{ app.user.username }}
+                                    </span>
+                                </span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="{{ path('settings_profile') }}">Profile</a>
+                            <a class="dropdown-item" href="{{ path('settings_profile') }}">Settings</a>
+                            <a class="dropdown-item" href="{{ '/logout' }}">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center-box d-flex align-items-stretch flex-column flex-lg-row">
+                <div class="left-column">
+                    <div class="auto-scroll">
+
+                        <div class="padding">
+                            <p class="f-14 mb-3 mb-lg-4 text-grey">Select how would you like to pay: From Nativeteams
+                                wallet, bank or credit card.</p>
+                            <div class="mb-3 mb-lg-4">
+                                <div class="card-box mb-3">
+                                    <div class="top-text"></div>
+                                    <div class="dropdown standard-dropdown more">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/icon-more-dots-vertical.svg">
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                             aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="text text-center">
+                                        <p class="mb-1"><img src="images/icon-wallet.svg" class="image-auto"></p>
+                                        <p class="mb-2">Nativeteams Wallet</p>
+                                        <div class="mb-3 wallet-choose">
+                                            <select class="form-control v2">
+                                                <option>USD</option>
+                                                <option>EUR</option>
+                                            </select>
+                                        </div>
+                                        <p class="text-grey f-16 mb-0">Total Value</p>
+                                        <p class="mb-0 total-price">$15,248<sub>.76</sub></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 mb-lg-4">
+                                <div class="mb-2">
+                                    <a href="#" class="link add">Banks</a>
+                                </div>
+
+                                <div class="card-box mb-3">
+                                    <div class="top-text text-green"><i class="fas fa-check-circle"></i>Approved</div>
+                                    <div class="dropdown standard-dropdown more">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/icon-more-dots-vertical.svg">
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                             aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="text text-center">
+                                        <p class="mb-3"><img src="images/icon-bank.svg" class="image-auto"></p>
+                                        <p class="mb-1">HDFC Bank</p>
+                                        <p class="text-grey f-16 mb-0">************* 9025</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3 mb-lg-4">
+                                <div class="mb-2">
+                                    <a href="#" class="link add">Cards</a>
+                                </div>
+
+                                <div class="card-box mb-3 active">
+                                    <div class="top-text">10/21</div>
+                                    <div class="dropdown standard-dropdown more">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/icon-more-dots-vertical.svg">
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                             aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="text text-center">
+                                        <p class="mb-3"><img src="images/mastercard.png" class="image-auto"></p>
+                                        <p class="mb-1">{{ app.user.username }}</p>
+                                        <p class="text-grey f-16 mb-0">**** **** **** 8845</p>
+                                    </div>
+                                </div>
+
+                                <div class="card-box mb-3">
+                                    <div class="top-text">8/20</div>
+                                    <div class="dropdown standard-dropdown more">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/icon-more-dots-vertical.svg">
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                             aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="text text-center">
+                                        <p class="mb-3"><img src="images/visa.png" class="image-auto"></p>
+                                        <p class="mb-1">{{ app.user.username }}</p>
+                                        <p class="text-grey f-16 mb-0">**** **** **** 8845</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="padding">
+                        <div class="payment-items-selected d-flex align-items-center justify-content-center justify-content-sm-between flex-column flex-sm-row flex-wrap mb-2">
+                            <ul class="list-unstyled list-inline mb-3 mb-sm-0">
+                                <li class="list-inline-item"><span class="num">4</span></li>
+                                <li class="list-inline-item">Items selected <span class="total">($5,450)</span></li>
+                            </ul>
+
+                            <ul class="list-unstyled list-inline mb-0">
+                                <li class="list-inline-item"><a href="#" class="btn pay-now-blue">Pay Now</a></li>
+                                <li class="list-inline-item"><a href="#" class="btn delete">Delete</a></li>
+                            </ul>
+                        </div>
+                        <p class="f-14 text-grey mb-3 mb-lg-4 text-center text-sm-left"><i
+                                    class="fas fa-check-circle d-inline-block align-middle mr-1 text-black fa-margin"></i>You
+                            will pay with a card that ends with 8845</p>
+
+                        <div class="payment-filter d-flex align-items-center justify-content-center justify-content-sm-between flex-column flex-sm-row flex-wrap mb-3 mb-lg-4">
+                            <ul class="list-unstyled list-inline mb-3 mb-sm-0">
+                                <li class="list-inline-item">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="test">
+                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span> Select All
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <label class="btn active">
+                                            <input type="radio" name="options" id="option1" checked> All
+                                        </label>
+                                        <label class="btn">
+                                            <input type="radio" name="options" id="option2"> Pending
+                                        </label>
+                                        <label class="btn">
+                                            <input type="radio" name="options" id="option3"> Paid
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <ul class="list-unstyled list-inline mb-0">
+                                <li class="list-inline-item"><a href="#" class="btn filter">Filter</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="table-responsive mb-4 mb-xl-5">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <td>Team Member</td>
+                                    <td>Payment Details</td>
+                                    <td>Amount</td>
+                                    <td>Due</td>
+                                    <td>Attachments</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="user with-checkbox">
+                                            <div class="avatar"
+                                                 style="background-image: url('images/user-image.jpg');"></div>
+                                            <strong>Birdie Johnston</strong>Junior Designer
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="test">
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>June 2/2</td>
+                                    <td class="text-red">$1,500</td>
+                                    <td>01/30/2020</td>
+                                    <td><a href="#" class="link-pdf">Invoice1.pdf</a></td>
+                                    <td class="text-right">
+                                        <div class="dropdown standard-dropdown more updated">
+                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
+                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
+                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
+                                                        </svg>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right p-2"
+                                                 aria-labelledby="dropdownMenuLink">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
+                                                            wallet</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
+                                                            card</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
+                                                            transfer</a></li>
+                                                    <li class="pt-2 pb-1"><a href="#"
+                                                                             class="f-15 text-black font-semibold"><img
+                                                                    src="images/icon-trash.svg"
+                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <div class="user with-checkbox">
+                                            <div class="avatar"
+                                                 style="background-image: url('images/user-image.jpg');"></div>
+                                            <strong>Birdie Johnston</strong>Junior Designer
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="test" checked>
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>June 2/2</td>
+                                    <td class="text-green">$1,500<i
+                                                class="fas fa-check-circle d-inline-block ml-2 fa-margin"></i></td>
+                                    <td><span class="text-grey">Paid</span></td>
+                                    <td><span class="text-grey">No attachments</span></td>
+                                    <td class="text-right">
+                                        <div class="dropdown standard-dropdown more updated">
+                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
+                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
+                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
+                                                        </svg>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right p-2"
+                                                 aria-labelledby="dropdownMenuLink">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
+                                                            wallet</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
+                                                            card</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
+                                                            transfer</a></li>
+                                                    <li class="pt-2 pb-1"><a href="#"
+                                                                             class="f-15 text-black font-semibold"><img
+                                                                    src="images/icon-trash.svg"
+                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="user with-checkbox">
+                                            <div class="avatar"
+                                                 style="background-image: url('images/user-image.jpg');"></div>
+                                            <strong>Birdie Johnston</strong>Junior Designer
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="test">
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>June 2/2</td>
+                                    <td class="text-red">$1,500</td>
+                                    <td>01/30/2020</td>
+                                    <td><a href="#" class="link-pdf">Invoice1.pdf</a></td>
+                                    <td class="text-right">
+                                        <div class="dropdown standard-dropdown more updated">
+                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
+                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
+                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
+                                                        </svg>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right p-2"
+                                                 aria-labelledby="dropdownMenuLink">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
+                                                            wallet</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
+                                                            card</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
+                                                            transfer</a></li>
+                                                    <li class="pt-2 pb-1"><a href="#"
+                                                                             class="f-15 text-black font-semibold"><img
+                                                                    src="images/icon-trash.svg"
+                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <div class="user with-checkbox">
+                                            <div class="avatar"
+                                                 style="background-image: url('images/user-image.jpg');"></div>
+                                            <strong>Birdie Johnston</strong>Junior Designer
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="test" checked>
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>June 2/2</td>
+                                    <td class="text-green">$1,500<i
+                                                class="fas fa-check-circle d-inline-block ml-2 fa-margin"></i></td>
+                                    <td><span class="text-grey">Paid</span></td>
+                                    <td><span class="text-grey">No attachments</span></td>
+                                    <td class="text-right">
+                                        <div class="dropdown standard-dropdown more updated">
+                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
+                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
+                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
+                                                        </svg>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right p-2"
+                                                 aria-labelledby="dropdownMenuLink">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
+                                                            wallet</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
+                                                            card</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
+                                                            transfer</a></li>
+                                                    <li class="pt-2 pb-1"><a href="#"
+                                                                             class="f-15 text-black font-semibold"><img
+                                                                    src="images/icon-trash.svg"
+                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="user with-checkbox">
+                                            <div class="avatar"
+                                                 style="background-image: url('images/user-image.jpg');"></div>
+                                            <strong>Birdie Johnston</strong>Junior Designer
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="test">
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>June 2/2</td>
+                                    <td class="text-red">$1,500</td>
+                                    <td>01/30/2020</td>
+                                    <td><a href="#" class="link-pdf">Invoice1.pdf</a></td>
+                                    <td class="text-right">
+                                        <div class="dropdown standard-dropdown more updated">
+                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
+                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
+                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
+                                                        </svg>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right p-2"
+                                                 aria-labelledby="dropdownMenuLink">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
+                                                            wallet</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
+                                                            card</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
+                                                            transfer</a></li>
+                                                    <li class="pt-2 pb-1"><a href="#"
+                                                                             class="f-15 text-black font-semibold"><img
+                                                                    src="images/icon-trash.svg"
+                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <div class="user with-checkbox">
+                                            <div class="avatar"
+                                                 style="background-image: url('images/user-image.jpg');"></div>
+                                            <strong>Birdie Johnston</strong>Junior Designer
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="test" checked>
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>June 2/2</td>
+                                    <td class="text-green">$1,500<i
+                                                class="fas fa-check-circle d-inline-block ml-2 fa-margin"></i></td>
+                                    <td><span class="text-grey">Paid</span></td>
+                                    <td><span class="text-grey">No attachments</span></td>
+                                    <td class="text-right">
+                                        <div class="dropdown standard-dropdown more updated">
+                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
+                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
+                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
+                                                        </svg>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right p-2"
+                                                 aria-labelledby="dropdownMenuLink">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
+                                                            wallet</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
+                                                            card</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
+                                                            transfer</a></li>
+                                                    <li class="pt-2 pb-1"><a href="#"
+                                                                             class="f-15 text-black font-semibold"><img
+                                                                    src="images/icon-trash.svg"
+                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="user with-checkbox">
+                                            <div class="avatar"
+                                                 style="background-image: url('images/user-image.jpg');"></div>
+                                            <strong>Birdie Johnston</strong>Junior Designer
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="test">
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>June 2/2</td>
+                                    <td class="text-red">$1,500</td>
+                                    <td>01/30/2020</td>
+                                    <td><a href="#" class="link-pdf">Invoice1.pdf</a></td>
+                                    <td class="text-right">
+                                        <div class="dropdown standard-dropdown more updated">
+                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
+                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
+                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
+                                                        </svg>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right p-2"
+                                                 aria-labelledby="dropdownMenuLink">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
+                                                            wallet</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
+                                                            card</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
+                                                            transfer</a></li>
+                                                    <li class="pt-2 pb-1"><a href="#"
+                                                                             class="f-15 text-black font-semibold"><img
+                                                                    src="images/icon-trash.svg"
+                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <div class="user with-checkbox">
+                                            <div class="avatar"
+                                                 style="background-image: url('images/user-image.jpg');"></div>
+                                            <strong>Birdie Johnston</strong>Junior Designer
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="test" checked>
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>June 2/2</td>
+                                    <td class="text-green">$1,500<i
+                                                class="fas fa-check-circle d-inline-block ml-2 fa-margin"></i></td>
+                                    <td><span class="text-grey">Paid</span></td>
+                                    <td><span class="text-grey">No attachments</span></td>
+                                    <td class="text-right">
+                                        <div class="dropdown standard-dropdown more updated">
+                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
+                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
+                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
+                                                        </svg>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right p-2"
+                                                 aria-labelledby="dropdownMenuLink">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
+                                                            wallet</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
+                                                            card</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
+                                                            transfer</a></li>
+                                                    <li class="pt-2 pb-1"><a href="#"
+                                                                             class="f-15 text-black font-semibold"><img
+                                                                    src="images/icon-trash.svg"
+                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="user with-checkbox">
+                                            <div class="avatar"
+                                                 style="background-image: url('images/user-image.jpg');"></div>
+                                            <strong>Birdie Johnston</strong>Junior Designer
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="test">
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>June 2/2</td>
+                                    <td class="text-red">$1,500</td>
+                                    <td>01/30/2020</td>
+                                    <td><a href="#" class="link-pdf">Invoice1.pdf</a></td>
+                                    <td class="text-right">
+                                        <div class="dropdown standard-dropdown more updated">
+                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
+                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
+                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
+                                                        </svg>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right p-2"
+                                                 aria-labelledby="dropdownMenuLink">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
+                                                            wallet</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
+                                                            card</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
+                                                            transfer</a></li>
+                                                    <li class="pt-2 pb-1"><a href="#"
+                                                                             class="f-15 text-black font-semibold"><img
+                                                                    src="images/icon-trash.svg"
+                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <div class="user with-checkbox">
+                                            <div class="avatar"
+                                                 style="background-image: url('images/user-image.jpg');"></div>
+                                            <strong>Birdie Johnston</strong>Junior Designer
+
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="test" checked>
+                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>June 2/2</td>
+                                    <td class="text-green">$1,500<i
+                                                class="fas fa-check-circle d-inline-block ml-2 fa-margin"></i></td>
+                                    <td><span class="text-grey">Paid</span></td>
+                                    <td><span class="text-grey">No attachments</span></td>
+                                    <td class="text-right">
+                                        <div class="dropdown standard-dropdown more updated">
+                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
+                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
+                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
+                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
+                                                        </svg>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right p-2"
+                                                 aria-labelledby="dropdownMenuLink">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
+                                                            wallet</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
+                                                            card</a></li>
+                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
+                                                            transfer</a></li>
+                                                    <li class="pt-2 pb-1"><a href="#"
+                                                                             class="f-15 text-black font-semibold"><img
+                                                                    src="images/icon-trash.svg"
+                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stripe script -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- jQuery first, then Bootstrap JS etc... -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/theme-script.js"></script>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let stripe = Stripe('\t\n' +
+            'pk_test_51HOTKXDQSTjfKNCRnsnYcp1M0W6IyTm7iLTn17omTpJEtgGu7hZ4Z3CF4Bm7IM5qh5uYo6liq3csk5UqSgF4Ii6I00jrDTsME1');
+        let elements = stripe.elements();
+
+        // Custom styling can be passed to options when creating an Element.
+        let style = {
+            base: {
+                // Add your base input styles here. For example:
+                fontSize: '16px',
+                color: '#32325d',
+            },
+        };
+
+        // Create an instance of the card Element.
+        let card = elements.create('card', {style: style});
+
+        // Add an instance of the card Element into the `card-element` <div>.
+        card.mount('#card-element');
+
+        card.addEventListener('change', function (event) {
+            let displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
+        // Create a token or display an error when the form is submitted.
+        let form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                    // Inform the customer that there was an error.
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Send the token to your server.
+                    stripeTokenHandler(result.token);
+                }
+            });
+        });
+
+        function stripeTokenHandler(token) {
+            // Insert the token ID into the form so it gets submitted to the server
+            let form = document.getElementById('payment-form');
+            let hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', 'stripeToken');
+            hiddenInput.setAttribute('value', token.id);
+            form.appendChild(hiddenInput);
+
+            // Submit the form
+            form.submit();
+        }
+    </script>
+{% endblock %}

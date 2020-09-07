@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="16.4px" height="19px" viewBox="0 0 16.4 19" enable-background="new 0 0 16.4 19" xml:space="preserve">
+<g>
+	<defs>
+		<path id="SVGID_1_" d="M12.4,1.1l2.8,2.8h-2.8V1.1z M16.3,4l-3.9-3.9C12.3,0,12.2,0,12.1,0H2.6C1.9,0,1.3,0.6,1.3,1.3v6.3
+			c0,0.2,0.1,0.3,0.3,0.3S2,7.7,2,7.5V1.3c0-0.3,0.3-0.6,0.6-0.6h9.2v3.6c0,0.2,0.1,0.3,0.3,0.3h3.6v13.1c0,0.3-0.3,0.6-0.6,0.6H2.6
+			c-0.3,0-0.6-0.3-0.6-0.6v-1.7c0-0.2-0.1-0.3-0.3-0.3s-0.3,0.1-0.3,0.3v1.7c0,0.7,0.6,1.3,1.3,1.3h12.5c0.7,0,1.3-0.6,1.3-1.3V4.3
+			C16.4,4.2,16.3,4.1,16.3,4z"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  overflow="visible"/>
+	</clipPath>
+	<rect x="-2" y="-3.3" clip-path="url(#SVGID_2_)" fill="#FF2C2C" width="21.6" height="25.6"/>
+</g>
+<g>
+	<defs>
+		<path id="SVGID_3_" d="M6.7,10.6H6.1V13h0.7c0.3,0,0.7-0.1,1-0.3C7.9,12.4,8,12.1,8,11.8C8,11,7.5,10.6,6.7,10.6z"/>
+	</defs>
+	<clipPath id="SVGID_4_">
+		<use xlink:href="#SVGID_3_"  overflow="visible"/>
+	</clipPath>
+	<rect x="2.8" y="7.3" clip-path="url(#SVGID_4_)" fill="#FF2C2C" width="8.5" height="8.9"/>
+</g>
+<g>
+	<defs>
+		<path id="SVGID_5_" d="M3.3,10.6H2.7V12h0.7c0.2,0,0.5,0,0.7-0.2c0.1-0.1,0.2-0.3,0.2-0.5c0-0.2-0.1-0.4-0.2-0.5
+			C3.8,10.6,3.6,10.6,3.3,10.6z"/>
+	</defs>
+	<clipPath id="SVGID_6_">
+		<use xlink:href="#SVGID_5_"  overflow="visible"/>
+	</clipPath>
+	<rect x="-0.5" y="7.3" clip-path="url(#SVGID_6_)" fill="#FF2C2C" width="8.1" height="7.9"/>
+</g>
+<g>
+	<defs>
+		<path id="SVGID_7_" d="M11.6,10.6H9.9v0.9h1.5v0.6H9.9v1.4H9.3v-3.4h2.3L11.6,10.6z M8.1,13c-0.4,0.3-0.9,0.5-1.5,0.5H5.5v-3.4
+			h1.2c0.5,0,1,0.1,1.4,0.5c0.3,0.3,0.5,0.8,0.5,1.2C8.6,12.2,8.4,12.7,8.1,13z M4.5,12.2c-0.3,0.2-0.7,0.3-1.1,0.3H2.7v1H2.2v-3.4
+			h1.2c0.4,0,0.8,0.1,1.1,0.3c0.3,0.2,0.4,0.6,0.4,0.9C4.8,11.6,4.7,12,4.5,12.2z M13.8,14V9.6c0-0.3-0.1-0.6-0.3-0.8
+			c-0.2-0.2-0.5-0.3-0.8-0.3H1.1c-0.3,0-0.6,0.1-0.8,0.3C0.1,9,0,9.3,0,9.6V14c0,0.3,0.1,0.6,0.3,0.8c0.2,0.2,0.5,0.3,0.8,0.3h11.6
+			c0.3,0,0.6-0.1,0.8-0.3C13.6,14.6,13.8,14.3,13.8,14z"/>
+	</defs>
+	<clipPath id="SVGID_8_">
+		<use xlink:href="#SVGID_7_"  overflow="visible"/>
+	</clipPath>
+	<rect x="-3.3" y="5.2" clip-path="url(#SVGID_8_)" fill="#FF2C2C" width="20.3" height="13.1"/>
+</g>
+</svg>

@@ -99,9 +99,19 @@ class Roles
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Agreement::class, mappedBy="role", cascade = {"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Agreement", mappedBy="role", cascade = {"persist", "remove"})
      */
     private $agreements;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $amount;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $status;
 
     public function __construct()
     {
@@ -296,6 +306,30 @@ class Roles
                 $agreement->setRole(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAmount(): ?int
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(?int $amount): self
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

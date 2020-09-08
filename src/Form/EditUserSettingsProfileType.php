@@ -21,7 +21,7 @@ class EditUserSettingsProfileType extends AbstractType
         $builder
             ->add('email', EmailType::class, ['label' => false, 'required' => false])
             ->add('username', TextType::class, ['label' => false, 'required' => false])
-            ->add('password', PasswordType::class, ['label' => false, 'mapped' => false, 'required' => true])
+            ->add('password', PasswordType::class, ['label' => false, 'mapped' => false, 'required' => false])
             ->add('newPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'mapped' => false,
@@ -34,7 +34,7 @@ class EditUserSettingsProfileType extends AbstractType
                         'class' => 'password-field'
                     ]
                 ],
-                'required' => true,
+                'required' => false,
             ]);
     }
 

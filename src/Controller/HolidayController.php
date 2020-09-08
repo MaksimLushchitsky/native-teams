@@ -1,44 +1,41 @@
 <?php
 
-declare(strict_types = 1);
 namespace App\Controller;
 
 use App\Entity\Organization;
-use App\Entity\Roles;
 use App\Entity\User;
 use App\Repository\RolesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class EmployeeDashboardController extends AbstractController
+class HolidayController extends AbstractController
 {
     /**
-     * @Route("/employee_dashboard", name="employee_dashboard")
-     * @param RolesRepository $rolesRepository
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Route("/holiday", name="holiday")
      */
     public function index(RolesRepository $rolesRepository, Request $request)
     {
         $user = $this->getUser();
         $user_id = $user->getId();
 
-        $org_id = $request->query->get('org_id');
+        $organizations_id = $rolesRepository->findOrganizationsId($user_id);
 
         $createOrganization = function ($array) {
             return $this->getDoctrine()->getRepository(Organization::class)->find($array);
         };
 
-        $organizations_id = $rolesRepository->findOrganizationsId($user_id);
+        $createUser = function ($array) {
+            return $this->getDoctrine()->getRepository(User::class)->find($array);
+        };
+
+        $org_id = $request->query->get('org_id');
 
         $organization = $this->getDoctrine()->getRepository(Organization::class)->find($org_id);
 
         $organizations = array_map($createOrganization, $organizations_id);
 
-        $image_name = $rolesRepository->findUserAvatar($user->getId(), $org_id);
-
-        $role_id = $rolesRepository->findRolesId($user->getId(), $org_id);
+        $image_name = $rolesRepository->findUserAvatar($user->getId(), $organizations_id[0]);
 
         if ($request->query->get('org_id')) {
             $org_id = $request->query->get('org_id');
@@ -46,13 +43,7 @@ class EmployeeDashboardController extends AbstractController
             $organization = $this->getDoctrine()->getRepository(Organization::class)->find($org_id);
 
             $image_name = $rolesRepository->findUserAvatar($user->getId(), $org_id);
-
-            $role_id = $rolesRepository->findRolesId($user->getId(), $org_id);
         }
-
-        $role = $this->getDoctrine()->getRepository(Roles::class)->find($role_id);
-
-        $agreements = $role->getAgreements();
 
         $user_role = $rolesRepository->findUserRole($user->getId(), $org_id);
 
@@ -62,11 +53,11 @@ class EmployeeDashboardController extends AbstractController
             ]));
         }
 
-        return $this->render('employee_dashboard/employee_dashboard.html.twig', [
+        return $this->render('holiday/holiday.html.twig', [
             'organizations' => $organizations,
             'organization' => $organization,
-            'image_name' => $image_name,
-            'agreements' => $agreements
+            'org_id' => $org_id,
+            'image_name' => $image_name
         ]);
     }
 }

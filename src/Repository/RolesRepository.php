@@ -30,10 +30,10 @@ class RolesRepository extends ServiceEntityRepository
         }, $statement->fetchAll());
     }
 
-    public function findUsersIdBelongsOrganization($value)
+    public function findUsersIdBelongsOrganization($org_id)
     {
         $statement = $this->getEntityManager()->getConnection()->prepare('SELECT user_id FROM roles WHERE organization_id = :organization_id');
-        $statement->bindValue("organization_id", $value);
+        $statement->bindValue("organization_id", $org_id);
         $statement->execute();
 
         return array_map(function ($array) {
@@ -41,10 +41,10 @@ class RolesRepository extends ServiceEntityRepository
         }, $statement->fetchAll());
     }
 
-    public function findUsersRolesBelongsOrganization($value)
+    public function findUsersRolesBelongsOrganization($org_id)
     {
         $statement = $this->getEntityManager()->getConnection()->prepare('SELECT role, user_id FROM roles WHERE organization_id = :organization_id');
-        $statement->bindValue("organization_id", $value);
+        $statement->bindValue("organization_id", $org_id);
         $statement->execute();
         return $statement->fetchAll();
     }
@@ -78,5 +78,13 @@ class RolesRepository extends ServiceEntityRepository
         $statement->bindValue("user_id", $user_id);
         $statement->execute();
         return $statement->fetchAll()[0]['image_name'];
+    }
+
+    public function findUsersAmountBelongsOrganization($org_id)
+    {
+        $statement = $this->getEntityManager()->getConnection()->prepare('SELECT amount, user_id FROM roles WHERE organization_id = :organization_id');
+        $statement->bindValue("organization_id", $org_id);
+        $statement->execute();
+        return $statement->fetchAll();
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 namespace App\Controller;
 
 use App\Entity\Organization;
@@ -42,12 +43,41 @@ class PaymentsController extends AbstractController
 
         $image_name = $rolesRepository->findUserAvatar($user->getId(), $organizations_id[0]);
 
+        $users_id = $rolesRepository->findUsersIdBelongsOrganization($organizations_id[0]);
+
+        //Roles for all users in organization
+        $user_roles = $rolesRepository->findUsersRolesBelongsOrganization($organizations_id[0]);
+
+        //Amounts for all users in organization
+        $user_amounts = $rolesRepository->findUsersAmountBelongsOrganization($organizations_id[0]);
+
+        $users = array_map($createUser, $users_id);
+
         if ($request->query->get('org_id')) {
             $org_id = $request->query->get('org_id');
 
             $organization = $this->getDoctrine()->getRepository(Organization::class)->find($org_id);
 
             $image_name = $rolesRepository->findUserAvatar($user->getId(), $org_id);
+
+            $users_id = $rolesRepository->findUsersIdBelongsOrganization($org_id);
+
+            $user_roles = $rolesRepository->findUsersRolesBelongsOrganization($org_id);
+
+            $user_amounts = $rolesRepository->findUsersAmountBelongsOrganization($org_id);
+
+            $users = array_map($createUser, $users_id);
+        }
+
+        $users_count = count($users);
+
+        //Role for current user
+        $user_role = $rolesRepository->findUserRole($user->getId(), $org_id);
+
+        if ($user_role == 'Employee') {
+            return $this->redirect($this->generateUrl('employee_dashboard', [
+                'org_id' => $org_id
+            ]));
         }
 
 //        Stripe::setApiKey('sk_test_51HOTKXDQSTjfKNCRdQIJyIBqo3227zKUia5n1Qh2ocjFny0ALDj5QWyKXU8r3O2tO03m8MALbWB1zSz6M1JI2Rye00fHlxhrak');
@@ -63,7 +93,12 @@ class PaymentsController extends AbstractController
             'organizations' => $organizations,
             'organization' => $organization,
             'org_id' => $org_id,
-            'image_name' => $image_name
+            'users' => $users,
+            'user_amounts' => $user_amounts,
+            'user_roles' => $user_roles,
+            'image_name' => $image_name,
+            'users_count' => $users_count,
+            'org_wallet' => $organization->getOrgWallet()
         ]);
     }
 }

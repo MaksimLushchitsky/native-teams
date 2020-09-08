@@ -349,7 +349,8 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         {% for organization in organizations %}
                             <a class="dropdown-item"
-                               href="{{ path('main', {'org_id': organization.id}) }}">{{ organization.name }}</a>
+                               href="{{ path('main', {'org_id': organization.id}) }}">{{ organization.name }}
+                            </a>
                         {% endfor %}
                     </div>
                 </div>

@@ -86,6 +86,11 @@ class User implements UserInterface
      */
     private $organization_role;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $user_wallet;
+
     public function __construct()
     {
         $this->organization_role = new ArrayCollection();
@@ -146,6 +151,18 @@ class User implements UserInterface
                 $organizationRole->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserWallet(): ?int
+    {
+        return $this->user_wallet;
+    }
+
+    public function setUserWallet(?int $user_wallet): self
+    {
+        $this->user_wallet = $user_wallet;
 
         return $this;
     }

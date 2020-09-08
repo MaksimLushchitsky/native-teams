@@ -395,7 +395,10 @@
                                             </select>
                                         </div>
                                         <p class="text-grey f-16 mb-0">Total Value</p>
-                                        <p class="mb-0 total-price">$15,248<sub>.76</sub></p>
+                                        <p class="mb-0 total-price">
+                                            ${{ org_wallet }}
+                                            {# <sub>.76</sub> #}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -481,12 +484,72 @@
                         </div>
                     </div>
                 </div>
+                {% set sum = 0 %}
+                {% for user_amount in user_amounts %}
+                    {% set sum = sum + user_amount.amount %}
+                {% endfor %}
+                <script type="text/javascript">
+                    function selectAll() {
+                        let select_all = document.getElementById('select_all');
+                        let checkboxes = document.getElementsByName('test');
+                        let count = 0;
+                        for (let checkbox of checkboxes) {
+                            checkbox.checked = select_all.checked === true;
+                        }
+
+                        let total = document.getElementById('total');
+                        if(select_all.checked === true) {
+                            count = {{ users_count }};
+                            total.innerHTML = {{ sum }};
+                        } else {
+                            total.innerHTML = 0;
+                            count = 0;
+                        }
+                        let checkbox_count = document.getElementById('checkbox_count');
+                        checkbox_count.innerHTML = count;
+                    }
+
+                    function checkboxCount() {
+                        let checkboxes = document.getElementsByName('test');
+                        let count = 0;
+                        for (let checkbox of checkboxes) {
+                            if (checkbox.checked === true) {
+                                count += 1;
+                            }
+                        }
+                        return count;
+                    }
+
+                    function sum() {
+                        let values = [];
+                        $('input[type="checkbox"]:checked').each(function() {
+                            values.push(Number($(this).val()));
+                        });
+                        let array = Object.values(values);
+                        let summa = 0;
+                        for(let i=0;i<array.length;i++){
+                            if (isNaN(array[i]) === true) {
+                                array[i] = 0;
+                            }
+                            summa = summa + Number(array[i]);
+                        }
+                        let total = document.getElementById('total');
+                        total.innerHTML = summa;
+                        let checkbox_count = document.getElementById('checkbox_count');
+                        checkbox_count.innerHTML = checkboxCount();
+                    }
+                </script>
                 <div class="content">
                     <div class="padding">
                         <div class="payment-items-selected d-flex align-items-center justify-content-center justify-content-sm-between flex-column flex-sm-row flex-wrap mb-2">
                             <ul class="list-unstyled list-inline mb-3 mb-sm-0">
-                                <li class="list-inline-item"><span class="num">4</span></li>
-                                <li class="list-inline-item">Items selected <span class="total">($5,450)</span></li>
+                                <li class="list-inline-item"><span class="num" id="checkbox_count">0</span></li>
+                                <li class="list-inline-item">Items selected
+                                    <span class="total">
+                                        ($
+                                        <span id="total">0</span>
+                                        )
+                                    </span></li>
                             </ul>
 
                             <ul class="list-unstyled list-inline mb-0">
@@ -503,7 +566,7 @@
                                 <li class="list-inline-item">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="test">
+                                            <input type="checkbox" name="test" id="select_all" onclick="selectAll()">
                                             <span class="cr"><i class="cr-icon fa fa-check"></i></span> Select All
                                         </label>
                                     </div>
@@ -541,545 +604,145 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/user-image.jpg');"></div>
-                                            <strong>Birdie Johnston</strong>Junior Designer
 
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
+                                {% for user in users %}
+                                    <tr>
+                                        <td>
+                                            <div class="user with-checkbox">
+                                                <div class="avatar"
+                                                     style="background-image: url('images/user-image.jpg');"></div>
+                                                <strong>{{ user.username }}</strong>
+                                                {% for user_role in user_roles %}
+                                                    {% if user.id == user_role.user_id %}
+                                                        {{ user_role.role }}
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" onclick="sum()" name="test" value="
+                                                {% for user_amount in user_amounts %}
+                                                    {% if user_amount %}
+                                                    {% if user.id == user_amount.user_id %}
+                                                        {% if user_amount.amount %}
+                                                            {{ user_amount.amount }}
+                                                        {% elseif user_amount.amount == null %}
+                                                            0
+                                                        {% else %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}{% endfor %}">
+                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>June 2/2</td>
-                                    <td class="text-red">$1,500</td>
-                                    <td>01/30/2020</td>
-                                    <td><a href="#" class="link-pdf">Invoice1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more updated">
-                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
-                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
+                                        </td>
+                                        <td>June 2/2</td>
+                                        <td class="text-red">$
+                                            {% for user_amount in user_amounts %}
+                                                {% if user_amount %}
+                                                    {% if user.id == user_amount.user_id %}
+                                                        {% if user_amount.amount %}
+                                                            {{ user_amount.amount }}
+                                                        {% elseif user_amount.amount == null %}
+                                                            0
+                                                        {% else %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                        <td>01/30/2020</td>
+                                        <td><a href="#" class="link-pdf">Invoice1.pdf</a></td>
+                                        <td class="text-right">
+                                            <div class="dropdown standard-dropdown more updated">
+                                                <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
+                                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                         width="4.6px" height="22px" viewBox="0 0 4.6 22"
+                                                         enable-background="new 0 0 4.6 22" xml:space="preserve">
                                                             <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
+                                                        <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
+                                                        <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
                                                         </svg>
-                                            </a>
+                                                </a>
 
-                                            <div class="dropdown-menu dropdown-menu-right p-2"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
-                                                            wallet</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
-                                                            card</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
-                                                            transfer</a></li>
-                                                    <li class="pt-2 pb-1"><a href="#"
-                                                                             class="f-15 text-black font-semibold"><img
-                                                                    src="images/icon-trash.svg"
-                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
-                                                    </li>
-                                                </ul>
+                                                <div class="dropdown-menu dropdown-menu-right p-2"
+                                                     aria-labelledby="dropdownMenuLink">
+                                                    <ul class="list-unstyled mb-0">
+                                                        <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay
+                                                                from
+                                                                wallet</a></li>
+                                                        <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
+                                                                card</a></li>
+                                                        <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
+                                                                transfer</a></li>
+                                                        <li class="pt-2 pb-1"><a href="#"
+                                                                                 class="f-15 text-black font-semibold"><img
+                                                                        src="images/icon-trash.svg"
+                                                                        class="d-inline-block align-middle fa-margin mr-2">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
 
+{#                                <tr>#}
+{#                                    <td>#}
+{#                                        <div class="user with-checkbox">#}
+{#                                            <div class="avatar"#}
+{#                                                 style="background-image: url('images/user-image.jpg');"></div>#}
+{#                                            <strong>Birdie Johnston</strong>Junior Designer#}
 
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/user-image.jpg');"></div>
-                                            <strong>Birdie Johnston</strong>Junior Designer
+{#                                            <div class="checkbox">#}
+{#                                                <label>#}
+{#                                                    <input type="checkbox" name="test" checked>#}
+{#                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>#}
+{#                                                </label>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </td>#}
+{#                                    <td>June 2/2</td>#}
+{#                                    <td class="text-green">$1,500<i#}
+{#                                                class="fas fa-check-circle d-inline-block ml-2 fa-margin"></i></td>#}
+{#                                    <td><span class="text-grey">Paid</span></td>#}
+{#                                    <td><span class="text-grey">No attachments</span></td>#}
+{#                                    <td class="text-right">#}
+{#                                        <div class="dropdown standard-dropdown more updated">#}
+{#                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"#}
+{#                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"#}
+{#                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"#}
+{#                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"#}
+{#                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">#}
+{#                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>#}
+{#                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>#}
+{#                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>#}
+{#                                                        </svg>#}
+{#                                            </a>#}
 
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test" checked>
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>June 2/2</td>
-                                    <td class="text-green">$1,500<i
-                                                class="fas fa-check-circle d-inline-block ml-2 fa-margin"></i></td>
-                                    <td><span class="text-grey">Paid</span></td>
-                                    <td><span class="text-grey">No attachments</span></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more updated">
-                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
-                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
-                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
-                                                        </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right p-2"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
-                                                            wallet</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
-                                                            card</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
-                                                            transfer</a></li>
-                                                    <li class="pt-2 pb-1"><a href="#"
-                                                                             class="f-15 text-black font-semibold"><img
-                                                                    src="images/icon-trash.svg"
-                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/user-image.jpg');"></div>
-                                            <strong>Birdie Johnston</strong>Junior Designer
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>June 2/2</td>
-                                    <td class="text-red">$1,500</td>
-                                    <td>01/30/2020</td>
-                                    <td><a href="#" class="link-pdf">Invoice1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more updated">
-                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
-                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
-                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
-                                                        </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right p-2"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
-                                                            wallet</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
-                                                            card</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
-                                                            transfer</a></li>
-                                                    <li class="pt-2 pb-1"><a href="#"
-                                                                             class="f-15 text-black font-semibold"><img
-                                                                    src="images/icon-trash.svg"
-                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/user-image.jpg');"></div>
-                                            <strong>Birdie Johnston</strong>Junior Designer
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test" checked>
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>June 2/2</td>
-                                    <td class="text-green">$1,500<i
-                                                class="fas fa-check-circle d-inline-block ml-2 fa-margin"></i></td>
-                                    <td><span class="text-grey">Paid</span></td>
-                                    <td><span class="text-grey">No attachments</span></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more updated">
-                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
-                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
-                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
-                                                        </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right p-2"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
-                                                            wallet</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
-                                                            card</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
-                                                            transfer</a></li>
-                                                    <li class="pt-2 pb-1"><a href="#"
-                                                                             class="f-15 text-black font-semibold"><img
-                                                                    src="images/icon-trash.svg"
-                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/user-image.jpg');"></div>
-                                            <strong>Birdie Johnston</strong>Junior Designer
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>June 2/2</td>
-                                    <td class="text-red">$1,500</td>
-                                    <td>01/30/2020</td>
-                                    <td><a href="#" class="link-pdf">Invoice1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more updated">
-                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
-                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
-                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
-                                                        </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right p-2"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
-                                                            wallet</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
-                                                            card</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
-                                                            transfer</a></li>
-                                                    <li class="pt-2 pb-1"><a href="#"
-                                                                             class="f-15 text-black font-semibold"><img
-                                                                    src="images/icon-trash.svg"
-                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/user-image.jpg');"></div>
-                                            <strong>Birdie Johnston</strong>Junior Designer
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test" checked>
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>June 2/2</td>
-                                    <td class="text-green">$1,500<i
-                                                class="fas fa-check-circle d-inline-block ml-2 fa-margin"></i></td>
-                                    <td><span class="text-grey">Paid</span></td>
-                                    <td><span class="text-grey">No attachments</span></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more updated">
-                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
-                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
-                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
-                                                        </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right p-2"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
-                                                            wallet</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
-                                                            card</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
-                                                            transfer</a></li>
-                                                    <li class="pt-2 pb-1"><a href="#"
-                                                                             class="f-15 text-black font-semibold"><img
-                                                                    src="images/icon-trash.svg"
-                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/user-image.jpg');"></div>
-                                            <strong>Birdie Johnston</strong>Junior Designer
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>June 2/2</td>
-                                    <td class="text-red">$1,500</td>
-                                    <td>01/30/2020</td>
-                                    <td><a href="#" class="link-pdf">Invoice1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more updated">
-                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
-                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
-                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
-                                                        </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right p-2"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
-                                                            wallet</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
-                                                            card</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
-                                                            transfer</a></li>
-                                                    <li class="pt-2 pb-1"><a href="#"
-                                                                             class="f-15 text-black font-semibold"><img
-                                                                    src="images/icon-trash.svg"
-                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/user-image.jpg');"></div>
-                                            <strong>Birdie Johnston</strong>Junior Designer
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test" checked>
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>June 2/2</td>
-                                    <td class="text-green">$1,500<i
-                                                class="fas fa-check-circle d-inline-block ml-2 fa-margin"></i></td>
-                                    <td><span class="text-grey">Paid</span></td>
-                                    <td><span class="text-grey">No attachments</span></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more updated">
-                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
-                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
-                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
-                                                        </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right p-2"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
-                                                            wallet</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
-                                                            card</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
-                                                            transfer</a></li>
-                                                    <li class="pt-2 pb-1"><a href="#"
-                                                                             class="f-15 text-black font-semibold"><img
-                                                                    src="images/icon-trash.svg"
-                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/user-image.jpg');"></div>
-                                            <strong>Birdie Johnston</strong>Junior Designer
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>June 2/2</td>
-                                    <td class="text-red">$1,500</td>
-                                    <td>01/30/2020</td>
-                                    <td><a href="#" class="link-pdf">Invoice1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more updated">
-                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
-                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
-                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
-                                                        </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right p-2"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
-                                                            wallet</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
-                                                            card</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
-                                                            transfer</a></li>
-                                                    <li class="pt-2 pb-1"><a href="#"
-                                                                             class="f-15 text-black font-semibold"><img
-                                                                    src="images/icon-trash.svg"
-                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/user-image.jpg');"></div>
-                                            <strong>Birdie Johnston</strong>Junior Designer
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test" checked>
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>June 2/2</td>
-                                    <td class="text-green">$1,500<i
-                                                class="fas fa-check-circle d-inline-block ml-2 fa-margin"></i></td>
-                                    <td><span class="text-grey">Paid</span></td>
-                                    <td><span class="text-grey">No attachments</span></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more updated">
-                                            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="4.6px" height="22px" viewBox="0 0 4.6 22"
-                                                     enable-background="new 0 0 4.6 22" xml:space="preserve">
-                                                            <circle fill="#B7B7B7" cx="2.3" cy="2.3" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="19.7" r="2.3"/>
-                                                    <circle fill="#B7B7B7" cx="2.3" cy="11" r="2.3"/>
-                                                        </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right p-2"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from
-                                                            wallet</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with
-                                                            card</a></li>
-                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank
-                                                            transfer</a></li>
-                                                    <li class="pt-2 pb-1"><a href="#"
-                                                                             class="f-15 text-black font-semibold"><img
-                                                                    src="images/icon-trash.svg"
-                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+{#                                            <div class="dropdown-menu dropdown-menu-right p-2"#}
+{#                                                 aria-labelledby="dropdownMenuLink">#}
+{#                                                <ul class="list-unstyled mb-0">#}
+{#                                                    <li class="pb-1"><a href="#" class="btn btn-block wallet">Pay from#}
+{#                                                            wallet</a></li>#}
+{#                                                    <li class="pb-1"><a href="#" class="btn btn-block card">Pay with#}
+{#                                                            card</a></li>#}
+{#                                                    <li class="pb-1"><a href="#" class="btn btn-block bank">Bank#}
+{#                                                            transfer</a></li>#}
+{#                                                    <li class="pt-2 pb-1"><a href="#"#}
+{#                                                                             class="f-15 text-black font-semibold"><img#}
+{#                                                                    src="images/icon-trash.svg"#}
+{#                                                                    class="d-inline-block align-middle fa-margin mr-2">Delete</a>#}
+{#                                                    </li>#}
+{#                                                </ul>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </td>#}
+{#                                </tr>#}
                                 </tbody>
                             </table>
                         </div>
@@ -1130,10 +793,10 @@
 
         // Create a token or display an error when the form is submitted.
         let form = document.getElementById('payment-form');
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', function (event) {
             event.preventDefault();
 
-            stripe.createToken(card).then(function(result) {
+            stripe.createToken(card).then(function (result) {
                 if (result.error) {
                     // Inform the customer that there was an error.
                     var errorElement = document.getElementById('card-errors');

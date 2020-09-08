@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 namespace App\Controller;
 
 use App\Entity\Organization;
@@ -36,7 +37,7 @@ class MainController extends AbstractController
 
         $image_name = $rolesRepository->findUserAvatar($user->getId(), $organizations_id[0]);
 
-        $user_role = $rolesRepository->findUserRole($user->getId(),  $organizations_id[0]);
+        $user_role = $rolesRepository->findUserRole($user->getId(), $organizations_id[0]);
 
         if ($organizations_id) {
 
@@ -60,17 +61,19 @@ class MainController extends AbstractController
                 $users_id = $rolesRepository->findUsersIdBelongsOrganization($org_id);
 
                 $organization = $this->getDoctrine()->getRepository(Organization::class)->find($org_id);
+
                 $users = array_map($createUser, $users_id);
+
                 $users_count = count($users);
 
                 $user_roles = $rolesRepository->findUsersRolesBelongsOrganization($org_id);
 
                 $image_name = $rolesRepository->findUserAvatar($user->getId(), $org_id);
 
-                $user_role = $rolesRepository->findUserRole($user->getId(),  $org_id);
+                $user_role = $rolesRepository->findUserRole($user->getId(), $org_id);
             }
 
-            if($user_role == 'Employee') {
+            if ($user_role == 'Employee') {
                 return $this->redirect($this->generateUrl('employee_dashboard', [
                     'org_id' => $org_id
                 ]));

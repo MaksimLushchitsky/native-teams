@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 namespace App\Controller;
 
 use App\Entity\Organization;
@@ -8,6 +9,8 @@ use App\Entity\User;
 use App\Form\CreateOrganizationType;
 use App\Form\EditOrganizationType;
 use App\Form\EditUserType;
+use App\Form\OrganizationWalletType;
+use App\Form\PaymentsDetailsType;
 use App\Form\RoleUserInOrganizationType;
 use App\Form\RoleUserInOrganizationWithoutOwnerType;
 use App\Repository\RolesRepository;
@@ -202,6 +205,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $role->getRole();
+            $role->setStatus('Pending');
             $em->persist($role);
             $em->flush();
 
@@ -215,6 +219,9 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/show_employees/{id}", name="show_employees")
+     * @param $id
+     * @param RolesRepository $rolesRepository
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showEmployees($id, RolesRepository $rolesRepository)
     {
@@ -282,6 +289,68 @@ class AdminController extends AbstractController
             'user' => $user,
             'organizations' => $organizations,
             'roles' => $roles
+        ]);
+    }
+
+    /**
+     * @Route("/add_payments_details/{user_id}/{org_id}", name="add_payments_details")
+     * @param $user_id
+     * @param $org_id
+     * @param RolesRepository $rolesRepository
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function addPaymentDetails($user_id, $org_id, RolesRepository $rolesRepository, Request $request)
+    {
+        $role_id = $rolesRepository->findRolesId($user_id, $org_id);
+
+        $role = $this->getDoctrine()->getRepository(Roles::class)->find($role_id);
+
+        $form = $this->createForm(PaymentsDetailsType::class, $role);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $role->getRole();
+            $em->persist($role);
+            $em->flush();
+
+            return $this->redirectToRoute("admin");
+        }
+
+        return $this->render('admin/payments_details.html.twig', [
+            'role_id' => $role_id,
+            'org_id' => $org_id,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/org_wallet/{org_id}", name="org_wallet")
+     * @param $org_id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function orgWallet($org_id, Request $request)
+    {
+        $organization = $this->getDoctrine()->getRepository(Organization::class)->find($org_id);
+
+        $form = $this->createForm(OrganizationWalletType::class, $organization);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($organization);
+            $em->flush();
+
+            return $this->redirectToRoute("admin");
+        }
+
+        return $this->render('admin/org_wallet.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

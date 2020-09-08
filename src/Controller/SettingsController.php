@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 namespace App\Controller;
 
 use App\Entity\Agreement;
@@ -59,17 +60,20 @@ class SettingsController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(EditRolesSettingsProfileType::class, $role);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $role = $form->getData();
 
-            $oldPassword = $form->get('user')->get('password')->getData();
-            $newPassword = $form->get('user')->get('newPassword')->getData();
+            if ($form->ge0t('user')->get('password')->getData()) {
+                $oldPassword = $form->get('user')->get('password')->getData();
+                $newPassword = $form->get('user')->get('newPassword')->getData();
 
-            if ($encoder->isPasswordValid($role->getUser(), $oldPassword)) {
-                $hash = $encoder->encodePassword($user, $newPassword);
-                $user->setPassword($hash);
+                if ($encoder->isPasswordValid($role->getUser(), $oldPassword)) {
+                    $hash = $encoder->encodePassword($user, $newPassword);
+                    $user->setPassword($hash);
+                }
             }
 
             $em->persist($role);

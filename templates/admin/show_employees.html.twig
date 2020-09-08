@@ -52,6 +52,7 @@
                             </td>
                             <td>
                                 <a href="{{ path('remove_employee', {'user_id': user.id, 'org_id': org_id}) }}" class="btn btn-sm btn-danger">Delete</a>
+                                <a href="{{ path('add_payments_details', {'user_id': user.id, 'org_id': org_id}) }}" class="btn btn-sm btn-danger">Add payments details</a>
                             </td>
                         </tr>
                     {% endfor %}

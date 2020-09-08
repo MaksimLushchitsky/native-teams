@@ -20,7 +20,6 @@
     <![endif]-->
 {% endblock %}
 {% block body %}
-
     <header class="d-flex d-md-none align-items-center justify-content-between">
         <div class="logo">
             <ul class="list-inline list-unstyled mb-0">
@@ -36,11 +35,11 @@
                     <div class="dropdown standard-dropdown user">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            <span class="icon" style="background-image: {% if image_name %}
+                            <span class="icon" style="background-image:
+                            {% if image_name %}
                                     url('/uploads/images/{{ image_name }}')
                             {% endif %}
-
-                                {% if image_name == null %}
+                            {% if image_name == null %}
                                     url('images/user-image.jpg')
                             {% endif %};">
 
@@ -53,9 +52,9 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Settings</a>
-                            <a class="dropdown-item" href="#">Logout</a>
+                            <a class="dropdown-item" href="{{ path('settings_profile') }}">Profile</a>
+                            <a class="dropdown-item" href="{{ path('settings_profile') }}">Settings</a>
+                            <a class="dropdown-item" href="{{ '/logout' }}">Logout</a>
                         </div>
                     </div>
                 </li>
@@ -84,7 +83,7 @@
             <div class="menu">
                 <ul class="list-unstyled mb-0">
                     <li>
-                        <a href="#" class="active">
+                        <a href="{{ path('employee_dashboard', {'org_id': organization.id}) }}" class="active">
                                 <span class="d-flex h-100 align-items-center justify-content-start icon">
                                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -143,7 +142,7 @@
                     </li>
 
                     <li>
-                        <a href="#" class="">
+                        <a href="{{ path('holiday', {'org_id': organization.id}) }}" class="">
                                 <span class="d-flex h-100 align-items-center justify-content-start icon">
                                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -193,7 +192,9 @@
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         {% for organization in organizations %}
-                            <a class="dropdown-item" href="{{ path('employee_dashboard', {'org_id': organization.id}) }}">{{ organization.name }}</a>
+                            <a class="dropdown-item"
+                               href="{{ path('employee_dashboard', {'org_id': organization.id}) }}">{{ organization.name }}
+                            </a>
                         {% endfor %}
                     </div>
                 </div>
@@ -228,9 +229,9 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Settings</a>
-                            <a class="dropdown-item" href="#">Logout</a>
+                            <a class="dropdown-item" href="{{ path('settings_profile') }}">Profile</a>
+                            <a class="dropdown-item" href="{{ path('settings_profile') }}">Settings</a>
+                            <a class="dropdown-item" href="{{ '/logout' }}">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -278,460 +279,44 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
 
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
+
+                                {% for agreement in agreements %}
+                                    <tr>
+                                        <td>
+                                            <div class="user with-checkbox">
+                                                <div class="avatar"
+                                                     style="background-image: url('images/icon-circle-agreement.png');"></div>
+                                                <strong>{{ agreement.agreementName }}</strong>Subtitle
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="test">
+                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
+                                        </td>
+                                        <td>07/06/2020</td>
+                                        <td>07/06/2020</td>
+                                        <td>1.0</td>
+                                        <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
+                                        <td class="text-right">
+                                            <div class="dropdown standard-dropdown more">
+                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="images/icon-more-dots-vertical.svg">
+                                                </a>
 
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
+                                                <div class="dropdown-menu dropdown-menu-right"
+                                                     aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="#">Edit</a>
+                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="user with-checkbox">
-                                            <div class="avatar"
-                                                 style="background-image: url('images/icon-circle-agreement.png');"></div>
-                                            <strong>Name</strong>Subtitle
-
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="test">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>07/06/2020</td>
-                                    <td>07/06/2020</td>
-                                    <td>1.0</td>
-                                    <td><a href="#" class="link-pdf">agreement1.pdf</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown standard-dropdown more">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="images/icon-more-dots-vertical.svg">
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right"
-                                                 aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
 
                                 </tbody>
                             </table>

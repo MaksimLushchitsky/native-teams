@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 namespace App\Controller;
 
 use App\Entity\Agreement;
@@ -72,16 +73,27 @@ class TeamController extends AbstractController
             $role_id = $rolesRepository->findRolesId($selected_user_id, $org_id);
         }
 
+        $user_role = $rolesRepository->findUserRole($user->getId(), $org_id);
+
+        if ($user_role == 'Employee') {
+            return $this->redirect($this->generateUrl('employee_dashboard', [
+                'org_id' => $org_id
+            ]));
+        }
+
         $role = $this->getDoctrine()->getRepository(Roles::class)->find($role_id);
 
-        $form = $this->createForm(AgreementType::class);
+        $agreement = new Agreement();
+
+        $form = $this->createForm(AgreementType::class, $agreement);
 
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $agreement = new Agreement();
+
+            //$role = $form->getData();
             
             $role->addAgreement($agreement);
             $em->persist($agreement);

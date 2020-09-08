@@ -29,6 +29,11 @@ class Organization
      */
     private $organization_roles;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $org_wallet;
+
     public function __construct()
     {
         $this->organization_roles = new ArrayCollection();
@@ -78,6 +83,18 @@ class Organization
                 $organizationRole->setOrganization(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOrgWallet(): ?int
+    {
+        return $this->org_wallet;
+    }
+
+    public function setOrgWallet(?int $org_wallet): self
+    {
+        $this->org_wallet = $org_wallet;
 
         return $this;
     }

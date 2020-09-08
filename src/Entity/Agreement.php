@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=AgreementRepository::class)
+ * @Vich\Uploadable
  */
 class Agreement
 {
@@ -30,13 +31,6 @@ class Agreement
     private $role;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
-     * @var DateTimeInterface|null
-     */
-    private $updatedAt;
-
-    /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="agreement", fileNameProperty="agreementName")
@@ -51,6 +45,13 @@ class Agreement
      * @var string|null
      */
     private $agreementName;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var DateTimeInterface|null
+     */
+    private $updatedAt;
 
     public function getId(): ?int
     {

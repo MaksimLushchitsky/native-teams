@@ -73,6 +73,7 @@
                     <a href="{{ path('edit_organization', {'id': organization.id}) }}" class="btn btn-sm btn-info">Edit</a>
                     <a href="{{ path('add_people', {'org_id': organization.id}) }}" class="btn btn-sm btn-info">Add people</a>
                     <a href="{{ path('show_employees', {'id': organization.id}) }}" class="btn btn-sm btn-info">Show employees</a>
+                    <a href="{{ path('org_wallet', {'org_id': organization.id}) }}" class="btn btn-sm btn-info">+ Org wallet</a>
                 </td>
             </tr>
         {% endfor %}
